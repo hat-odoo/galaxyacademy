@@ -13,12 +13,20 @@
             <t t-foreach="docs" t-as="doc">
                 <t t-call="report.external_layout">
                     <div class="page">
-                        <h2 t-field="doc.name"/>
+                        
+                        <h2 style="text-align:center;" t-field="doc.name"/>
+                        <div style="border : 1px solid black"></div>
+                        <h3> Course Name : <span t-field="doc.course_id"/></h3>
+                        <h3> Exam Name : <span t-field="doc.exam_id"/></h3>
                         <p>From <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/></p>
                         <h3>Attendees:</h3>
+                        <hr />
                         <ul>
                             <t t-foreach="doc.attendee_ids" t-as="attendee">
-                                <li><span t-field="attendee.name"/></li>
+                                <li><span t-field="attendee.name"/>
+                                    <span t-field="attendee.phone"/>
+                                    <span t-field="attendee.email"/>
+                                </li>
                             </t>
                         </ul>
                     </div>

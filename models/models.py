@@ -3,30 +3,44 @@ from datetime import timedelta
 from odoo import models, fields, api, exceptions, _
 
 class Course(models.Model):
-	_name = 'galaxyacademy.course'
+    _name = 'galaxyacademy.course'
 
-	name = fields.Char(string="Title", required=True)
-	description = fields.Text()
-	responsible_id = fields.Many2one('res.users',
+    name = fields.Char(string="Title", required=True)
+    description = fields.Text()
+    responsible_id = fields.Many2one('res.users',
         ondelete='set null', string="Responsible", index=True)
-	session_ids = fields.One2many(
+    session_ids = fields.One2many(
         'galaxyacademy.session', 'course_id', string="Sessions")
+    exam_entry = fields.Boolean(default=True)
+    # _inherits = 'galaxyacademy.Exam'
 
-	@api.multi
-	def copy(self, default=None):
-		default = dict(default or {})
+    @api.model
+    def create(self, values):
+        res_id = super(Course, self).create(values)
+        if res_id.exam_entry:
+            self.env['galaxyacademy.exam'].create({
+                'name': res_id.name,
+                'course_id': res_id.id,
+                'description': res_id.description,
+            })
+        print values
+        return res_id
 
-		copied_count = self.search_count(
-		    [('name', '=like', _(u"Copy of {}%").format(self.name))])
-		if not copied_count:
-		    new_name = _(u"Copy of {}").format(self.name)
-		else:
-		    new_name = _(u"Copy of {} ({})").format(self.name, copied_count)
+    @api.multi
+    def copy(self, default=None):
+        default = dict(default or {})
 
-		default['name'] = new_name
-		return super(Course, self).copy(default)
+        copied_count = self.search_count(
+            [('name', '=like', _(u"Copy of {}%").format(self.name))])
+        if not copied_count:
+            new_name = _(u"Copy of {}").format(self.name)
+        else:
+            new_name = _(u"Copy of {} ({})").format(self.name, copied_count)
 
-	_sql_constraints = [
+        default['name'] = new_name
+        return super(Course, self).copy(default)
+
+    _sql_constraints = [
         ('name_description_check',
          'CHECK(name != description)',
          "The title of the course should not be the description"),
@@ -35,6 +49,7 @@ class Course(models.Model):
          'UNIQUE(name)',
          "The course title must be unique"),
     ]
+
 
 class Session(models.Model):
     _name = 'galaxyacademy.session'
@@ -48,10 +63,10 @@ class Session(models.Model):
 
     instructor_id = fields.Many2one('res.partner', string="Instructor",
         domain=['|', ('instructor', '=', True),
-	        ('category_id.name', 'ilike', "Teacher")]
-	       )
-    course_id = fields.Many2one('galaxyacademy.course',
-        ondelete='cascade', string="Course", required=True)
+            ('category_id.name', 'ilike', "Teacher")]
+           )
+    course_id = fields.Many2one('galaxyacademy.course',string="Course")
+    exam_id = fields.Many2one('galaxyacademy.exam', string="Exam")
     attendee_ids = fields.Many2many('res.partner', string="Attendees")
 
     taken_seats = fields.Float(string="Taken seats",compute='_taken_seats')
@@ -82,11 +97,11 @@ class Session(models.Model):
 
     @api.depends('seats','attendee_ids')
     def _taken_seats(self):
-    	for r in self:
-    		if not r.seats:
-    			r.taken_seats = 0.0
-    		else:
-    			r.taken_seats = 100.0 * len(r.attendee_ids) / r.seats
+        for r in self:
+            if not r.seats:
+                r.taken_seats = 0.0
+            else:
+                r.taken_seats = 100.0 * len(r.attendee_ids) / r.seats
 
     @api.onchange('seats', 'attendee_ids')
     def _verify_valid_seats(self):
@@ -140,8 +155,8 @@ class Session(models.Model):
 
     @api.depends('attendee_ids')
     def _get_attendees_count(self):
-    	for r in self:
-    		r.attendees_count = len(r.attendee_ids)
+        for r in self:
+            r.attendees_count = len(r.attendee_ids)
 
     @api.constrains('instructor_id', 'attendee_ids')
     def _check_instructor_not_in_attendees(self):
@@ -152,10 +167,12 @@ class Session(models.Model):
 class Exam(models.Model):
     _name = 'galaxyacademy.exam'
 
-    name = fields.Char(string="Exam", required=True)
+    name = fields.Char(string="Exam-Title", required=True)
     description = fields.Text()
     course_id = fields.Many2one('galaxyacademy.course',
-        ondelete='cascade', string="Course", required=True)
+        string="Course", required=True)
+    session_ids = fields.One2many(
+        'galaxyacademy.session','exam_id', string="Sessions")
     # exam_date = fields.
 # class galaxyacademy(models.Model):
 #     _name = 'galaxyacademy.galaxyacademy'

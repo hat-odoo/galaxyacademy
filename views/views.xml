@@ -10,6 +10,7 @@
                     <group>
                         <field name="name"/>
                         <field name="responsible_id"/>
+                        <field name="exam_entry"/>
                     </group>
                     <notebook>
                       <page string="Description">
@@ -107,7 +108,8 @@
                 <sheet>
                     <group>
                       <group string="General">
-                          <field name="course_id"/>
+                          <field name="course_id" attrs="{'required': [('exam_id', '=', False)]}"/>
+                          <field name="exam_id" attrs="{'required': [('course_id', '=', False)]}"/>
                           <field name="name"/>
                           <field name="instructor_id"/>
                           <field name="active"/>
@@ -134,6 +136,7 @@
             <tree string="Session Tree" decoration-info="duration&lt;5" decoration-danger="duration&gt;15">
                 <field name="name"/>
                 <field name="course_id"/>
+                <field name="exam_id" />
                 <field name="duration" invisible="1"/>
                 <field name="taken_seats" widget="progressbar"/>
             </tree>
@@ -269,8 +272,19 @@
                     <group>
                         <field name="name"/>
                         <field name="course_id"/>
-                        <field name="description"/>
                     </group>
+                    <!-- <notebook> -->
+                    <group>
+                      <!-- <page string="Sessions"> -->
+                          <field name="session_ids">
+                              <tree string="Registered sessions">
+                                  <field name="name"/>
+                                  <field name="instructor_id"/>
+                              </tree>
+                          </field>
+                      <!-- </page> -->
+                    </group>
+                    <!-- </notebook> -->
                 </sheet>
             </form>
         </field>
