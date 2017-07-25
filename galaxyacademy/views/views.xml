@@ -213,6 +213,31 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="session_search_view">
+      <field name="name">session.search</field>
+      <field name="model">galaxyacademy.session</field>
+      <field name="arch" type="xml">
+          <search>
+              <field name="name"/>
+              <field name="course_id"/>
+              <field name="exam_id" />
+              <field name="duration" invisible="1"/>
+              <field name="taken_seats" widget="progressbar"/>
+              <!-- <field name="description"/> -->
+              <!-- <filter name="my_sessions_course" string="My Sessions Course"
+                      domain="[('course_id', '=', uid)]"/>
+              <filter name="my_sessions_exam" string="My Sessions Exam"
+                      domain="[('exam_id', '=', uid)]"/> -->
+              <group string="Group By">
+                  <filter name="by_course" string="Course"
+                          context="{'group_by': 'course_id'}"/>
+                  <filter name="by_exam" string="Exam"
+                          context="{'group_by': 'exam_id'}"/>
+              </group>
+          </search>
+      </field>
+    </record>
+
     <record model="ir.ui.view" id="galaxyacademy_session_graph_view_course">
         <field name="name">galaxyacademy.session.graph</field>
         <field name="model">galaxyacademy.session</field>
@@ -291,6 +316,7 @@
         <field name="res_model">galaxyacademy.session</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,calendar,gantt,graph,kanban</field>
+        <field name="context" eval="{'search_default_my_sessions_course':1}"/>
     </record>
 
 <!--     <record id="action_for_exam_graph" model="ir.actions.act_window">
@@ -420,11 +446,29 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="exam_search_view">
+      <field name="name">exam.search</field>
+      <field name="model">galaxyacademy.exam</field>
+      <field name="arch" type="xml">
+          <search>
+              <field name="name"/>
+              <field name="course_id"/>
+              <filter name="my_exam_course" string="My Exam Course"
+                      domain="[('course_id', '=', 'course 2')]"/>
+              <group string="Group By">
+                  <filter name="by_course" string="Course"
+                          context="{'group_by': 'course_id'}"/>
+              </group>
+          </search>
+      </field>
+    </record>
+
     <record model="ir.actions.act_window" id="exam_list_action">
         <field name="name">Exams</field>
         <field name="res_model">galaxyacademy.exam</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form,kanban</field>
+        <field name="context" eval="{'search_default_my_exam_course':1}"/>
     </record>
 
     <menuitem id="exam_menu" name="Exams"
