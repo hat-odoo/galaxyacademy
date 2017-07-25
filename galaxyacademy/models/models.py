@@ -12,6 +12,7 @@ class Course(models.Model):
     session_ids = fields.One2many(
         'galaxyacademy.session', 'course_id', string="Sessions")
     exam_entry = fields.Boolean(default=True)
+    color = fields.Integer()
     # _inherits = 'galaxyacademy.Exam'
 
     @api.model
@@ -19,7 +20,7 @@ class Course(models.Model):
         res_id = super(Course, self).create(values)
         if res_id.exam_entry:
             self.env['galaxyacademy.exam'].create({
-                'name': res_id.name,
+                'name': res_id.name + "_exam " + str(res_id.id),
                 'course_id': res_id.id,
                 'description': res_id.description,
             })
@@ -173,6 +174,8 @@ class Exam(models.Model):
         string="Course", required=True)
     session_ids = fields.One2many(
         'galaxyacademy.session','exam_id', string="Sessions")
+    color = fields.Integer()
+    start_date = fields.Date(default=fields.Date.today)
     # exam_date = fields.
 # class galaxyacademy(models.Model):
 #     _name = 'galaxyacademy.galaxyacademy'

@@ -33,6 +33,52 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="view_galaxyacad_course_kanban">
+        <field name="name">galaxyacad.course.kanban</field>
+        <field name="model">galaxyacademy.course</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="responsible_id">
+                <field name="color"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div
+                                t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}}
+                                              oe_kanban_global_click_edit oe_semantic_html_override
+                                              oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+                            <div class="oe_dropdown_kanban">
+                                <!-- dropdown menu -->
+                                <div class="oe_dropdown_toggle">
+                                    <i class="fa fa-bars fa-lg"/>
+                                    <ul class="oe_dropdown_menu">
+                                        <li>
+                                            <a type="delete">Delete</a>
+                                        </li>
+                                        <li>
+                                            <ul class="oe_kanban_colorpicker"
+                                                data-field="color"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                            <div t-attf-class="oe_kanban_content">
+                                <!-- title -->
+                                Exam name:
+                                <field name="name"/>
+                                <br/>
+                                Exam Entry:
+                                <field name="exam_entry"/>
+                                <br/>
+                                <!-- duration:
+                                <field name="duration"/> -->
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
     <record model="ir.ui.view" id="course_search_view">
       <field name="name">course.search</field>
       <field name="model">galaxyacademy.course</field>
@@ -61,12 +107,11 @@
         </field>
     </record>
 
-
     <record model="ir.actions.act_window" id="course_list_action">
       <field name="name">Courses</field>
       <field name="res_model">galaxyacademy.course</field>
       <field name="view_type">form</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
       <field name="context" eval="{'search_default_my_courses':1}"/>
       <field name="help" type="html">
           <p class="oe_view_nocontent_create">Create the first course
@@ -168,16 +213,32 @@
         </field>
     </record>
 
-    <record model="ir.ui.view" id="galaxyacademy_session_graph_view">
+    <record model="ir.ui.view" id="galaxyacademy_session_graph_view_course">
         <field name="name">galaxyacademy.session.graph</field>
         <field name="model">galaxyacademy.session</field>
         <field name="arch" type="xml">
             <graph string="Participations by Courses">
-                <field name="course_id"/>
+                <field name="course_id" type="row"/>
+                <!-- <field name="exam_id" type="row"/> -->
+                <field name="attendees_count" type="measure"/>
+            </graph>
+<!--             <graph string="Participations by Exams">
+                <field name="exam_id"/>
+                <field name="attendees_count" type="measure"/>
+            </graph> -->
+        </field>
+    </record>
+
+    <!-- <record model="ir.ui.view" id="galaxyacademy_session_graph_view_exam">
+        <field name="name">galaxyacademy.session.graph</field>
+        <field name="model">galaxyacademy.session</field>
+        <field name="arch" type="xml">
+            <graph string="Participations by Exams">
+                <field name="exam_id" type="row"/>
                 <field name="attendees_count" type="measure"/>
             </graph>
         </field>
-    </record>
+    </record> -->
 
     <record model="ir.ui.view" id="view_galaxyacad_session_kanban">
         <field name="name">galaxyacad.session.kanban</field>
@@ -232,10 +293,22 @@
         <field name="view_mode">tree,form,calendar,gantt,graph,kanban</field>
     </record>
 
+<!--     <record id="action_for_exam_graph" model="ir.actions.act_window">
+      <field name="name">By Exam</field>
+      <field name="res_model">galaxyacademy.session</field>
+      <field name="view_type">form</field>
+      <field name="view_mode">graph</field>
+      <field name="view_id" ref="galaxyacademy_session_graph_view_exam"/>
+    </record> -->
+
     <menuitem id="session_menu" name="Sessions"
               parent="galaxyacademy_menu"
               action="session_list_action"/>
 
+    <!-- <menuitem id="session_exam_graph" name="Sessions"
+              parent="galaxyacademy_menu"
+              action="action_for_exam_graph"/>
+ -->
     <record model="ir.ui.view" id="wizard_form_view">
       <field name="name">wizard.form</field>
       <field name="model">galaxyacademy.wizard</field>
@@ -290,11 +363,68 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="view_galaxyacad_exam_kanban">
+        <field name="name">galaxyacad.exam.kanban</field>
+        <field name="model">galaxyacademy.exam</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="course_id">
+                <field name="color"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div
+                                t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}}
+                                              oe_kanban_global_click_edit oe_semantic_html_override
+                                              oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+                            <div class="oe_dropdown_kanban">
+                                <!-- dropdown menu -->
+                                <div class="oe_dropdown_toggle">
+                                    <i class="fa fa-bars fa-lg"/>
+                                    <ul class="oe_dropdown_menu">
+                                        <li>
+                                            <a type="delete">Delete</a>
+                                        </li>
+                                        <li>
+                                            <ul class="oe_kanban_colorpicker"
+                                                data-field="color"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                            <div t-attf-class="oe_kanban_content">
+                                <!-- title -->
+                                Exam name:
+                                <field name="name"/>
+                                <br/>
+                                Start date:
+                                <field name="start_date"/>
+                                <br/>
+                                <!-- duration:
+                                <field name="duration"/> -->
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="exam_tree_view">
+        <field name="name">exam.tree</field>
+        <field name="model">galaxyacademy.exam</field>
+        <field name="arch" type="xml">
+            <tree string="Exam Tree">
+                <field name="name"/>
+                <field name="course_id"/>
+            </tree>
+        </field>
+    </record>
+
     <record model="ir.actions.act_window" id="exam_list_action">
         <field name="name">Exams</field>
         <field name="res_model">galaxyacademy.exam</field>
         <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">tree,form,kanban</field>
     </record>
 
     <menuitem id="exam_menu" name="Exams"

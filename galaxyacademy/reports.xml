@@ -21,14 +21,21 @@
                         <p>From <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/></p>
                         <h3>Attendees:</h3>
                         <hr />
-                        <ul>
+                        <table>
+                            <tr>
+                                <th style="padding-right: 50px;"> Name: </th>
+                                <th style="padding-right: 100px;"> Phone No. </th>
+                                <th> Email </th>
+                            </tr>
+                            <!-- <div style="border: 2px solid white"></div> -->
                             <t t-foreach="doc.attendee_ids" t-as="attendee">
-                                <li><span t-field="attendee.name"/>
-                                    <span t-field="attendee.phone"/>
-                                    <span t-field="attendee.email"/>
-                                </li>
+                                <tr><td style="padding: 3px;"><span t-field="attendee.name"/></td>
+                                    <td style="padding: 3px;"><span t-field="attendee.phone"/></td>
+                                    <td style="padding: 3px;"><span t-field="attendee.email"/></td>
+                                </tr>
+                                <!-- <br /> -->
                             </t>
-                        </ul>
+                        </table>
                     </div>
                 </t>
             </t>
