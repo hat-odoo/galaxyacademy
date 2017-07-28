@@ -1,0 +1,96 @@
+<odoo>
+    <data>
+        <template id="index">
+            <t t-call="website.layout">
+                <t t-set="title">Academy</t>
+                <div class="oe_structure">
+                    <div class="container">
+                        <t t-foreach="teachers" t-as="teacher">
+                          <!-- <p><t t-esc="teacher.id"/><t t-esc="teacher.name"/></p> -->
+                          <p><a t-attf-href="/academy/academy/{{ slug(teacher) }}">
+                              <t t-esc="teacher.name"/></a>
+                            </p>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="indexcourse">
+            <t t-call="website.layout">
+                <t t-set="title">Academy</t>
+                <div class="oe_structure">
+                    <div class="container">
+                        <t t-foreach="courses" t-as="course">
+                          <!-- <p><t t-esc="teacher.id"/><t t-esc="teacher.name"/></p> -->
+                          <p><a t-attf-href="/academy/course/{{ slug(course) }}">
+                              <t t-esc="course.name"/></a>
+                            </p>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="biography">
+            <t t-call="website.layout">
+                <t t-set="title">Academy</t>
+                <div class="oe_structure"/>
+                <div class="oe_structure">
+                    <div class="container">
+                        <h3 t-field="person.name"/>
+                        <p>Last modified: <i t-field="person.write_date" t-options='{"format": "long"}'/></p>
+                        <div t-field="person.biography"/>
+                    </div>
+                </div>
+                <div class="oe_structure"/>
+            </t>
+        </template>
+
+        <template id="teacher_id">
+            <t t-call="website.layout">
+                <t t-set="title">Course</t>
+                <div id="oe_structure"/>
+                <div id="oe_structure">
+                    <div class="container">
+                        <!-- <h1>Our Courses</h1> -->
+                        <h3 t-field="person.name"/>
+                        <p>Last modified: <i t-field="person.write_date" t-options='{"format": "long"}'/></p>
+                        <div t-field="person.teacher_id"/>
+                    </div>
+                </div>
+            </t>
+        </template>
+        <!-- <template id="product_item_hide_no_price" inherit_id="website_sale.products_item">
+            <xpath expr="//div[hasclass('product_price')]/b" position="attributes">
+                <attribute name="t-if">product.price &gt; 0</attribute>
+            </xpath>
+        </template>
+        <record id="website_sale.products_categories" model="ir.ui.view">
+            <field name="active" eval="True"/>
+        </record> -->
+        <!-- <template id="listing"> -->
+        <!--   <ul> -->
+        <!--     <li t-foreach="objects" t-as="object"> -->
+        <!--       <a t-attf-href="#{ root }/objects/#{ object.id }"> -->
+        <!--         <t t-esc="object.display_name"/> -->
+        <!--       </a> -->
+        <!--     </li> -->
+        <!--   </ul> -->
+        <!-- </template> -->
+        <!-- <template id="object"> -->
+        <!--   <h1><t t-esc="object.display_name"/></h1> -->
+        <!--   <dl> -->
+        <!--     <t t-foreach="object._fields" t-as="field"> -->
+        <!--       <dt><t t-esc="field"/></dt> -->
+        <!--       <dd><t t-esc="object[field]"/></dd> -->
+        <!--     </t> -->
+        <!--   </dl> -->
+        <!-- </template> -->
+        <template id="assets_editor" inherit_id="website.assets_frontend" name="academy">
+          <xpath expr="." position="inside">
+            <script type="text/javascript" src="/academy/static/src/js/website.tour.academy.js"></script>
+          </xpath>
+        </template>
+    </data>
+</odoo>
