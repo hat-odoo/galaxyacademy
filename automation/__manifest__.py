@@ -24,7 +24,7 @@
     # 'js': ['static/src/js/first_module.js'],
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        'security/ir.model.access.csv',
         'views/views.xml',
         'views/templates.xml',
     ],
