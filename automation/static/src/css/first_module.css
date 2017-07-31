@@ -1,0 +1,30 @@
+.Group_A {
+	/*padding-left: 300px;*/
+	margin-top: 10px;
+}
+
+.Marker {
+	border: 0.5px dashed grey;
+}
+
+.Form {
+	margin-top: 10px;
+	padding: 20px;
+}
+
+.row {
+	height: 5px;
+}
+
+.save_button {
+	width: 100px;
+	height: 40px;
+	background-color: #1a8cff;
+	color: white;
+	border-radius: 5px;
+}
+.cancel_button {
+	width: 100px;
+	height: 40px;
+	border-radius: 5px;
+}
