@@ -5,6 +5,10 @@
         <field name="tag">automation.main</field>
     </record>
 
+    <record id="automation_action_second" model="ir.actions.client">
+        <field name="name">second_module</field>
+        <field name="tag">automation_second.main</field>
+    </record>
    <!--  <record id="automation_second_action" model="ir.actions.client">
       <field name="name">second_module</field>
       <field name="tag">automation.main</field>
@@ -17,6 +21,8 @@
               parent="main_automation_menu"/>
 
     <menuitem name="first_module" id="first_module_menu" action="automation_action" parent="automation_menu"/>
+
+    <menuitem name="second_module" id="second_module_menu" action="automation_action_second" parent="automation_menu"/>
     <!-- explicit list view definition -->
     <!--
     <record model="ir.ui.view" id="automation.list">

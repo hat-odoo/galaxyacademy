@@ -15,7 +15,12 @@
 .row {
 	height: 5px;
 }
-
+.message {
+	visibility: hidden;
+	color: red;
+	background-color: white;
+	border: 1px solid black;
+}
 .save_button {
 	width: 100px;
 	height: 40px;

@@ -2,8 +2,11 @@
     <data>
         <template id="assets_backend" name="automation Assets" inherit_id="web.assets_backend" priority="17">
             <xpath expr="." position="inside">
-                <link href="/automation/static/src/css/first_module.css" rel="stylesheet" type="text/less"/>
+                <link href="/automation/static/src/css/first_module.css" rel="stylesheet" type="text/css"/>
                 <script type="text/javascript" src="/automation/static/src/js/first_module.js"></script>
+
+                <link href="/automation/static/src/css/second_module.css" rel="stylesheet" type="text/css"/>
+                <script type="text/javascript" src="/automation/static/src/js/second_module.js"></script>
             </xpath>
         </template>
         <!-- <template id="listing"> -->

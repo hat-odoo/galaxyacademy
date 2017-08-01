@@ -1,0 +1,36 @@
+.header {
+	margin-top: 10px;
+}
+
+.Marker {
+	border: 0.5px dashed grey;
+}
+
+.content {
+	margin-top: 10px;
+	padding: 20px;
+}
+
+.Layout {
+	border-top: 1px solid black;
+	/*border-bottom: 1px solid black;*/
+}
+
+.row {
+	border-top: 1px solid black;
+}
+
+.column {
+	display: inline-block;
+	/*padding-right: 100px;*/
+	width: 300px;
+}
+
+.table-header {
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.space {
+	margin-top:1px;
+}

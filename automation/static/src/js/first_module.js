@@ -39,15 +39,9 @@ var Frontview = Widget.extend({
                     });
             }
             else {
+                // document.getElementsByClass("message").style.visibility = "visible";
                 console.log("blank entry entered!!!");
             }
-            //     .always(function() {
-            //         // Re-enable button
-            //         $(e.delegateTarget).find('.o_web_settings_dashboard_invitations').prop('disabled', false);
-            //         $(e.delegateTarget).find('i.fa-cog').addClass('hidden');
-            //     });
-
-            //this.trigger('user_chose', true);
         },
         'click button.cancel_button': function () {
             //this.trigger('user_chose', false);

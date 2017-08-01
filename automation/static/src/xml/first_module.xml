@@ -7,12 +7,13 @@
         
         <div class="Group_A">
             <h1> Automation Entry </h1>
-           
+            
             <div class="Marker"></div>
             <div class="Form">
                 <h3>General Details:</h3>
                 <!-- <hr /> -->
                 <div class="row"></div>
+                <p class="message">Please enter the name : </p>
                 <table>
                     <tr><td>
                 Name:       </td><td>    <input type="text" name="name" /></td></tr>
@@ -24,7 +25,9 @@
                 city:       </td><td>     <input type="text" name="city" /></td></tr>
                 </table>
             </div>
+            
         </div>
+
         <!-- </div> -->
     </t>
 

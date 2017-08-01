@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template_second" xml:space="preserve">
+    <t t-name="PreView">
+        <!-- <div style="width:30%; float:left;"> -->
+        <!-- Template content -->
+        
+        <div class="heading">
+            <h1> Automation Vehicle View </h1>
+           
+            <div class="Marker"></div>
+            <div class="content">
+                <h3>Vehicle Details:</h3>
+                <!-- <div class="row"></div> -->
+
+                <div class="row">
+                    <div class="column table-header">Product Name:</div>
+                    <div class="column table-header">Vehicle Type</div>
+                    <div class="column table-header">Quantity</div>
+                </div>
+
+                <hr class="space"/>
+                <div class="row">
+                    <div class="column">1</div>
+                    <div class="column">2</div>
+                    <div class="column">3</div>
+                </div>
+
+                <hr class="space"/>
+                <div class="row">
+                    <div class="column">11</div>
+                    <div class="column">21</div>
+                    <div class="column">31</div>
+                </div>
+
+               <!-- <div class="second"></div> -->
+            </div>
+        </div>
+    </t>
+
+
+    <t t-name="PostView">
+        <div class="heading">
+            <h1>You have appeared.</h1>
+            <div class="Marker"></div>
+            <div class="content">
+                <h3>Vehicle Form:</h3>
+                <!-- <div class="row"></div> -->
+
+                <div class="form">
+                    Product Name : 
+                    <input type="text" name="name" />
+                    <hr />
+                    Vehicle Type : 
+                    <input type="text" name="type" />
+                    <hr />
+                    Quantity :
+                    <input type="text" name="quantity" />
+                </div>
+               <!-- <div class="second"></div> -->
+            </div>
+
+        </div>
+    </t>
+</templates>

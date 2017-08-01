@@ -28,7 +28,7 @@
         'views/views.xml',
         'views/templates.xml',
     ],
-    'qweb': ['static/src/xml/first_module.xml'],
+    'qweb': ['static/src/xml/first_module.xml','static/src/xml/second_module.xml'],
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml',
